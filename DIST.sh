@@ -6,7 +6,6 @@
 #   2018-02-18
 #
 
-exit 0
 PACKAGE=iotdb-structured
 DIST_ROOT=/var/tmp/.dist.$$
 
