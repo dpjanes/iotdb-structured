@@ -36,7 +36,7 @@ describe("priceSpecification", function() {
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 12.12,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 };
 
             const expected = {
@@ -51,7 +51,7 @@ describe("priceSpecification", function() {
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 15.15,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 }
             ]
 
@@ -67,12 +67,12 @@ describe("priceSpecification", function() {
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 15.15,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 },
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 21.01,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 }
             ]
 
@@ -88,17 +88,17 @@ describe("priceSpecification", function() {
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 15.15,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 },
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 99.98,
-                    "schema:currencyCode": "CAD",
+                    "schema:priceCurrency": "CAD",
                 },
                 {
                     "@type": "schema:PriceSpecification",
                     "schema:value": 21.01,
-                    "schema:currencyCode": "USD",
+                    "schema:priceCurrency": "USD",
                 }
             ]
 
