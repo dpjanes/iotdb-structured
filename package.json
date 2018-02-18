@@ -4,11 +4,10 @@
         "url": "https://github.com/dpjanes/iotdb-structured/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.2.3"
+        "iotdb-helpers": "~3.2.6", 
+        "iotdb-uom-qudt": "~1.0.3"
     }, 
-    "description": "Helpers for dealing with schema.org-like structured data",
-    "devDependencies": {
-    }, 
+    "description": "Helpers for dealing with schema.org-like structured data", 
     "homepage": "https://github.com/dpjanes/node-iotdb", 
     "license": "Apache-2.0", 
     "main": "index.js", 
@@ -22,5 +21,5 @@
         "cover": "nyc --reporter=html mocha --recursive", 
         "test": "mocha --recursive --bail"
     }, 
-    "version": "1.0.0"
+    "version": "1.0.1"
 }
