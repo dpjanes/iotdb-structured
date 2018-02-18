@@ -39,21 +39,7 @@ const ok_error = (done, code) => error => {
 }
 
 /**
- *  Standard connection
- */
-const initialize = _.promise.make((self, done) => {
-    _.promise.make(self)
-        .then(_.promise.add("structuredd", require("./data/structured.json")))
-        .then(structured.initialize)
-        .then(_.promise.done(done, self, "structured"))
-        .catch(done)
-})
-
-
-/**
  *  API
  */
 exports.auto_fail = auto_fail;
 exports.ok_error = ok_error;
-
-exports.initialize = initialize;

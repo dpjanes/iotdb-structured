@@ -22,4 +22,7 @@
 
 "use strict";
 
+const qudt = require("iotdb-uom-qudt")
+qudt.load()
+
 module.exports = require("./lib");
