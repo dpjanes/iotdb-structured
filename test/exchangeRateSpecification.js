@@ -100,5 +100,39 @@ describe("exchangeRateSpecification", function() {
 
             assert.deepEqual(actual, expected)
         })
+        it("multiple exchangeRateSpecification - with reverse", function() {
+            const values =  [
+                {
+                    '@type': 'schema:ExchangeRateSpecification',
+                    'schema:currency': 'USD',
+                    'schema:currentExchangeRate': {
+                        '@type': 'schema:UnitPriceSpecification',
+                        'schema:price': 1500,
+                        'schema:priceCurrency': 'CDF'
+                    }
+                },
+                {
+                    '@type': 'schema:ExchangeRateSpecification',
+                    'schema:currency': 'USD',
+                    'schema:currentExchangeRate': {
+                        '@type': 'schema:UnitPriceSpecification',
+                        'schema:price': 1.28,
+                        'schema:priceCurrency': 'CAD'
+                    }
+                }
+            ]
+
+            const expected = {
+                "USD-CDF": 1500,
+                "USD-CAD": 1.28,
+                "CAD-USD": 0.78125,
+                "CDF-USD": 0.0006666666666666666,
+            }
+            const actual = structured.exchangeRateSpecification(values, {
+                reverse: true,
+            })
+
+            assert.deepEqual(actual, expected)
+        })
     })
 })
