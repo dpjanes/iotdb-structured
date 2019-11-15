@@ -30,7 +30,7 @@ const structured = require("..")
 const _util = require("./_util")
 
 describe("value_unit", function() {
-    describe("total", function() {
+    describe("exceptions enabled", function() {
         it("structured value", function() {
             const input = 
                 {
@@ -131,9 +131,40 @@ describe("value_unit", function() {
 
             assert.deepStrictEqual(actual, expected)
         })
-        it("catch unconvertable", function() {
+        it("no value (exception)", function() {
+            const input = {}
+
+            try {
+                const actual = structured.value_unit(input)
+                throw new Error("expected an error!")
+            } catch (x) {
+            }
+        })
+        it("no unit (exception)", function() {
+            const input = {
+                "schema:value": 100,
+            }
+
+            try {
+                const actual = structured.value_unit(input)
+                throw new Error("expected an error!")
+            } catch (x) {
+            }
+        })
+        it("uncoercable (exception)", function() {
+            const input = {
+                "schema:value": "Yabba dabba do",
+                "schema:unitCode": "unit:Gram",
+            }
+
+            try {
+                const actual = structured.value_unit(input)
+                throw new Error("expected an error!")
+            } catch (x) {
+            }
+        })
+        it("unconvertable (exception)", function() {
             const input = -100.22
-            const expected = { value: -100.22, unit: 'unit:Number' }
 
             try {
                 const actual = structured.value_unit(input, { coerce_unit: "unit:Schmeckle" })
@@ -142,4 +173,140 @@ describe("value_unit", function() {
             }
         })
     })
+    describe("exceptions disabled", function() {
+        it("structured value", function() {
+            const input = 
+                {
+                    "@type": "schema:StructuredValue",
+                    "schema:value": 12,
+                    "schema:unitCode": "unit:Gram"
+                };
+
+            const expected = { value: 12, unit: 'unit:Gram' }
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("structured value - in array", function() {
+            const input = 
+                [ {
+                    "@type": "schema:StructuredValue",
+                    "schema:value": 12,
+                    "schema:unitCode": "unit:Gram"
+                } ];
+
+            const expected = { value: 12, unit: 'unit:Gram' }
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("structured value - string coercion", function() {
+            const input = 
+                {
+                    "@type": "schema:StructuredValue",
+                    "schema:value": "12.22",
+                    "schema:unitCode": "unit:Gram"
+                };
+
+            const expected = { value: 12.22, unit: 'unit:Gram' }
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("structured value - string coercion blocked", function() {
+            const input = 
+                {
+                    "@type": "schema:StructuredValue",
+                    "schema:value": "12.22",
+                    "schema:unitCode": "unit:Gram"
+                };
+
+            const expected = null
+            const actual = structured.value_unit(input, { coerce_value: false, exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("structured value - string coercion and number", function() {
+            const input = 
+                {
+                    "@type": "schema:StructuredValue",
+                    "schema:value": "1222",
+                    "schema:unitCode": "unit:Gram"
+                };
+
+            const expected = { value: 1.222, unit: 'unit:Kilogram' }
+            const actual = structured.value_unit(input, { coerce_unit: "unit:Kilogram", exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("scalar value", function() {
+            const input = -100.22
+            const expected = { value: -100.22, unit: 'unit:Number' }
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("scalar value in array", function() {
+            const input = [ -100.22 ]
+            const expected = { value: -100.22, unit: 'unit:Number' }
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("null value", function() {
+            const input = null
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("undefined value", function() {
+            const input = undefined
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("weird value", function() {
+            const input = () => 1;
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("no value (exception)", function() {
+            const input = {}
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("no unit (exception)", function() {
+            const input = {
+                "schema:value": 100,
+            }
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("uncoercable (exception)", function() {
+            const input = {
+                "schema:value": "Yabba dabba do",
+                "schema:unitCode": "unit:Gram",
+            }
+            const expected = null
+            const actual = structured.value_unit(input, { exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+        it("unconvertable (exception)", function() {
+            const input = -100.22
+            const expected = null
+            const actual = structured.value_unit(input, { coerce_unit: "unit:Schmeckle", exceptions: false })
+
+            assert.deepStrictEqual(actual, expected)
+        })
+    })
 })
+
