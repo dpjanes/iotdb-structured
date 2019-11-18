@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/iotdb-structured/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.3.16", 
+        "iotdb-helpers": "~3.4.2", 
         "iotdb-uom-qudt": "~1.0.5"
     }, 
     "description": "Helpers for dealing with schema.org-like structured data", 
